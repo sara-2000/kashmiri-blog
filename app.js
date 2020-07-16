@@ -14,7 +14,9 @@ var express        = require("express"),
 var blogRoutes = require("./routes/blogs"),
 	indexRoutes		 = require("./routes/index");
 
-mongoose.connect("mongodb+srv://Mongod:Sara%402003@cluster0-rrz9x.mongodb.net/kashmiri_blog?retryWrites=true&w=majority" , { 
+var url = process.env.DATABASEURL || "mongodb://localhost:27017/kashmiri_blog;"
+
+mongoose.connect(url , { 
     useNewUrlParser: true, 
     useCreateIndex:true , 
     useUnifiedTopology: true, 
@@ -25,7 +27,6 @@ mongoose.connect("mongodb+srv://Mongod:Sara%402003@cluster0-rrz9x.mongodb.net/ka
     console.log("ERROR: " , err.message);
 });    
 
-mongoose.connect("mongodb://localhost:27017/kashmiri_blog" , { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
 app.use(bodyParser.urlencoded({extended : true}));
 app.set("view engine" , "ejs");
 app.use(express.static(__dirname + "/public"));
@@ -56,6 +57,6 @@ app.use(function(req , res , next){
 app.use("/" , indexRoutes);
 app.use("/blogs" , blogRoutes);
 
-app.listen(3000 , function(){
+app.listen(process.env.PORT, process.env.IP , function(){
 	console.log("kp server has started");
 });
