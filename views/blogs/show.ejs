@@ -1,0 +1,22 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+	<div class="thumbnail">
+		<img class="img-responsive" src="<%= blog.image %>">
+		<div class="caption-full">
+			<h4> <a href="#"><%= blog.title %></a></h4>
+			<p><%= blog.content %> </p>
+			<p>
+				<em> Submitted By <%= blog.author.username %> </em>
+			</p>
+			<% if(currentUser && blog.author.id.equals(currentUser._id)) { %>
+			<a class="btn btn-xs btn-warning" href="/blogs/<%=blog._id%>/edit">Edit</a>
+			<form class="delete-form" action="/blogs/<%= blog._id %>?_method=DELETE"   method="POST">
+				<button class="btn btn-xs btn-danger">Delete</button>
+			</form>
+			<% } %>	
+		</div>
+	</div>
+</div>
+
+<%- include("../partials/footer") %>

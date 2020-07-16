@@ -1,0 +1,31 @@
+<%- include("../partials/header") %>
+
+
+<div class="container">
+	<header class="jumbotron">
+		<div class="container">
+			<h1><i class="fas fa-campground"></i>kashmiri Pandit Blog</h1>
+			<p>Learn about our heritage and our struggle </p>
+			<p>
+				<a class="btn btn-primary btn-lg" href="/blogs/new">Write a new Blog</a>
+			</p>
+		</div>
+	</header>
+	<div class="row text-center" style="display: flex; flex-wrap: wrap; ">
+		<% blog.forEach(function(item){ %>
+			<div class="col-md-3 col-sm-6">
+				<div  class="thumbnail">
+					<img src="<%= item.image %>">
+					<div class="caption">
+						<h4><%= item.title %></h4>
+					</div>
+					<p>
+						<a href="/blogs/<%= item._id %>" class="btn btn-primary">Read</a>
+					</p>
+				</div>
+			</div>
+		<% }); %>
+	</div>
+</div>	
+
+<%- include("../partials/footer") %>
