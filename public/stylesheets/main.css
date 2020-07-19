@@ -20,16 +20,15 @@
 }
 
 body{
-  font-family: 'Merriweather', serif;
-  /*font-weight: 400;*/
+  font-family: 'Open Sans', sans-serif;
   font-style: normal;
   line-height: 1.8em;
   font-size: 1.9rem;
 }
 
 #title{
-  font-family: 'Merriweather', serif;
-  font-weight: 700;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
   font-style: italic;
 	color: steelblue;
 	line-height: 1.5em;
