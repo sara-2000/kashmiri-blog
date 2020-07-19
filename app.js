@@ -58,5 +58,8 @@ app.use("/" , indexRoutes);
 app.use("/blogs" , blogRoutes);
 
 app.listen(process.env.PORT, process.env.IP , function(){
-	console.log("kp server has started");
+	console.log("blog server has started");
 });
+// app.listen(3000 , function(){
+//     console.log("kp server has started");
+// });

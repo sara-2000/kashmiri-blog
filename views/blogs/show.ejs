@@ -1,11 +1,9 @@
 <%- include("../partials/header") %>
 
 <div class="container">
-	<div class="thumbnail">
-		<img class="img-responsive" src="<%= blog.image %>">
+	<div class="col-md-3 thumbnail">
+		<img class="img-responsive show-image" src="<%= blog.image %>">
 		<div class="caption-full">
-			<h4> <a href="#"><%= blog.title %></a></h4>
-			<p><%= blog.content %> </p>
 			<p>
 				<em> Submitted By <%= blog.author.username %> </em>
 			</p>
@@ -17,6 +15,10 @@
 			<% } %>	
 		</div>
 	</div>
+    <div class="col-md-9">
+    	<h2 class="text-center" id="title"><%= blog.title %></h2>
+    	<p id="content"><%= blog.content %> </p>
+    </div>
 </div>
 
 <%- include("../partials/footer") %>

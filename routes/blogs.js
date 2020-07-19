@@ -4,7 +4,27 @@ var express    = require("express"),
 	Blog = require("../models/blog"),
 	middleware = require("../middleware");
 
+var multer = require('multer');
+var storage = multer.diskStorage({
+	filename: function(req, file, callback) {
+		callback(null, Date.now() + file.originalname);
+	}
+});
+var imageFilter = function (req, file, cb) {
+    // accept image files only
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
+    	return cb(new Error('Only image files are allowed!'), false);
+    }
+    cb(null, true);
+};
+var upload = multer({ storage: storage, fileFilter: imageFilter});
 
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+	cloud_name: 'dh2bhwtur', 
+	api_key:"711544293299258", 
+	api_secret:"ezyc3NldJmid5evFFHb9B2iSRbs"
+});
 // INDEX ROUTE - displays list of blogs
 router.get("/" , function(req , res){
 	//get all blogs from the db
@@ -18,7 +38,7 @@ router.get("/" , function(req , res){
 });
 
 // CREATE ROUTE - adds new blog to db
-router.post("/" , middleware.isLoggedIn , function(req , res){
+router.post("/" , middleware.isLoggedIn , upload.single('image') ,function(req , res){
 	var author = {
 		id : req.user._id,
 		username : req.user.username
@@ -30,20 +50,30 @@ router.post("/" , middleware.isLoggedIn , function(req , res){
 		// published: req.body.published, 
 		// updated: req.body.updated, 
 		author: author,
-	    image: req.body.image, 
-   	    tags: req.body.tags 
+		image: req.body.image, 
+		tags: req.body.tags 
 	} ;
-	//create a new blog and add to database
-	Blog.create(newBlog , function(err , newlyCreated){
-		if(err){
-			console.log(err);
-		}else{
-			//redirect back to blogs page
-			req.flash("success" , "Successfully created blog");
-			res.redirect("/blogs");
-		}
+	console.log(req.file);
+	console.log(req.body);
+	cloudinary.uploader.upload(req.file.path, function(result) {
+		console.log("/////////////////////////////////////////////////////");
+		console.log(result);
+	// add cloudinary url for the image to the campground object under image property
+		image = result.secure_url;
+		newBlog.image = image;
+		//create a new blog and add to database
+		Blog.create(newBlog , function(err , newlyCreated){
+			if(err){
+				console.log(err);
+			}else{
+				//redirect back to blogs page
+				req.flash("success" , "Successfully created blog");
+				res.redirect("/blogs");
+			}
+		});
 	});
 });
+
 
 //NEW ROUTE - displays form to make new blog
 router.get("/new" , middleware.isLoggedIn , function(req , res){
