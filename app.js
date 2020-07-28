@@ -15,6 +15,7 @@ var blogRoutes = require("./routes/blogs"),
 	indexRoutes		 = require("./routes/index");
 
 var url = process.env.DATABASEURL || "mongodb://localhost:27017/kashmiri_blog;"
+//var url = "mongodb+srv://Mongod:Sara%402003@cluster0-rrz9x.mongodb.net/kashmiri_blog?retryWrites=true&w=majority"
 
 mongoose.connect(url , { 
     useNewUrlParser: true, 
@@ -57,9 +58,9 @@ app.use(function(req , res , next){
 app.use("/" , indexRoutes);
 app.use("/blogs" , blogRoutes);
 
-app.listen(process.env.PORT, process.env.IP , function(){
-	console.log("blog server has started");
-});
-// app.listen(3000 , function(){
-//     console.log("kp server has started");
+// app.listen(process.env.PORT, process.env.IP , function(){
+// 	console.log("blog server has started");
 // });
+app.listen(3000 , function(){
+    console.log("kp server has started");
+});
