@@ -14,8 +14,8 @@ var express        = require("express"),
 var blogRoutes = require("./routes/blogs"),
 	indexRoutes		 = require("./routes/index");
 
-var url = process.env.DATABASEURL || "mongodb://localhost:27017/kashmiri_blog;"
-//var url = "mongodb+srv://Mongod:Sara%402003@cluster0-rrz9x.mongodb.net/kashmiri_blog?retryWrites=true&w=majority"
+// var url = process.env.DATABASEURL || "mongodb://localhost:27017/kashmiri_blog;"
+var url = "mongodb+srv://Mongod:Sara%402003@cluster0-rrz9x.mongodb.net/kashmiri_blog?retryWrites=true&w=majority"
 
 mongoose.connect(url , { 
     useNewUrlParser: true, 
